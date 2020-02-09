@@ -6,6 +6,11 @@
   margin-right: 5px;
 }
 
+.views .selected {
+  border: 1px solid darkgray;
+  background: lightgrey;
+}
+
 ul {
   margin: 0;
   padding: 0;
@@ -35,10 +40,6 @@ ul li h2 {
   font-size: 14px;
 }
 
-ul li h3 {
-
-}
-
 ul li img {
   grid-area: a;
   display: block;
@@ -49,4 +50,23 @@ ul li img {
 ul li .price {
   font-size: 16px;
   font-weight: bold;
+}
+
+/*grid view*/
+ul.grid {
+  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+}
+
+ul.grid li {
+  display: block;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+ul.grid li img {
+  max-width: none;
+}
+
+ul.grid li p {
+  display: none;
 }
