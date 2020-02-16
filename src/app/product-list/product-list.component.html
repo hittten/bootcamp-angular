@@ -1,0 +1,22 @@
+<div class="wrapper">
+  <h1>Products</h1>
+  <div class="views">
+    <i class="material-icons">
+      view_list
+    </i>
+    <i class="material-icons">
+      view_module
+    </i>
+  </div>
+  <ul>
+    <li *ngFor="let product of products">
+      <h2>{{product.name}}</h2>
+      <img src="{{product.image}}" alt="{{product.name}}">
+      <p>{{product.description.length > 150 ? product.description.slice(0, 150) + '...' : product.description}}</p>
+      <div class="price">{{product.price}} €</div>
+      <div>
+        <button class="button">add to cart</button>
+      </div>
+    </li>
+  </ul>
+</div>
