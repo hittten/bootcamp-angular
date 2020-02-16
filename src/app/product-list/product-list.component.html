@@ -16,7 +16,7 @@
         ({{product.createdAt | date:'dd/MM/yy'}}) -
         {{product.description.length > 150 ? (product.description | slice:0:150) + '...' : product.description}}
       </p>
-      <div class="price">{{product.price}} €</div>
+      <div class="price">{{product.price | euroCurrency}}</div>
       <div>
         <button class="button">add to cart</button>
       </div>
