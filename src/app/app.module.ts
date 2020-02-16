@@ -6,13 +6,15 @@ import {AppComponent} from './app.component';
 import {HeaderComponent} from './header/header.component';
 import {ProductListComponent} from './product-list/product-list.component';
 import {TooltipDirective} from './tooltip.directive';
+import {EuroCurrencyPipe} from './euro-currency.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     ProductListComponent,
-    TooltipDirective
+    TooltipDirective,
+    EuroCurrencyPipe
   ],
   imports: [
     BrowserModule,
