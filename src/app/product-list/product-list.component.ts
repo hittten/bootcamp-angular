@@ -8,6 +8,7 @@ import {PRODUCTS} from '../mock-products';
 })
 export class ProductListComponent implements OnInit {
   products = PRODUCTS;
+  gridView = false;
 
   constructor() {
   }
