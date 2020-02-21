@@ -1,5 +1,6 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
+import {ReactiveFormsModule} from '@angular/forms';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -7,6 +8,10 @@ import {HeaderComponent} from './header/header.component';
 import {ProductListComponent} from './product-list/product-list.component';
 import {TooltipDirective} from './tooltip.directive';
 import {EuroCurrencyPipe} from './euro-currency.pipe';
+import {ShoppingCarComponent} from './shopping-car/shopping-car.component';
+import {ProductsComponent} from './products/products.component';
+import {ProductAddComponent} from './product-add/product-add.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -14,11 +19,16 @@ import {EuroCurrencyPipe} from './euro-currency.pipe';
     HeaderComponent,
     ProductListComponent,
     TooltipDirective,
-    EuroCurrencyPipe
+    EuroCurrencyPipe,
+    ShoppingCarComponent,
+    ProductsComponent,
+    ProductAddComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

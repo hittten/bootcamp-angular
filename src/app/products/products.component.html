@@ -1,0 +1,11 @@
+<div class="wrapper">
+  <h1>Products</h1>
+  <app-product-list
+    [products$]="products$"
+    (buttonClick)="addToCar($event)"
+    buttonText="Add to car">
+  </app-product-list>
+</div>
+<i routerLink="/products/add" class="material-icons">
+  add
+</i>

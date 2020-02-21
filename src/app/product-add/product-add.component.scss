@@ -1,0 +1,25 @@
+h1 {
+  text-align: center;
+}
+
+form {
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+form label {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10px;
+}
+
+form input, textarea {
+  display: block;
+  box-sizing: border-box;
+  padding: 10px 5px;
+  width: 100%;
+}
+
+form textarea {
+  height: 100px;
+}

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:300,400,700&display=swap');
+
 body {
   margin: 0;
   font-family: 'Roboto', sans-serif;
@@ -24,4 +25,13 @@ i.material-icons {
   border: none;
   border-radius: 2px;
   color: white;
+}
+
+.button:disabled {
+  background-color: lightblue;
+}
+
+.loading {
+  display: block;
+  margin: 50px auto;
 }
