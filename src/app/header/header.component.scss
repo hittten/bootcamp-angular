@@ -8,3 +8,43 @@ header {
   position: sticky;
   top: 0;
 }
+
+header nav {
+  display: none;
+}
+
+header.nav-open nav {
+  display: block;
+}
+
+header nav {
+  background: white;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
+  border-radius: 4px;
+  color: black;
+  position: absolute;
+  top: 40px;
+  left: 20px;
+  padding: 5px 0;
+}
+
+header ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+header ul li {
+  display: flex;
+  padding: 10px;
+  cursor: pointer;
+  align-items: center;
+}
+
+header ul li:hover {
+  background: rgba(0, 0, 0, .04);
+}
+
+header ul li i {
+  margin-right: 8px;
+}

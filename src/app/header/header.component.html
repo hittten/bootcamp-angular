@@ -1,8 +1,23 @@
-<header class="wrapper">
-  <i class="material-icons">
+<header #header class="wrapper">
+  <i #menuIcon class="material-icons" (click)="openNav(header, menuIcon)">
     menu
   </i>
-  <!--  TODO add nav -->
+  <nav>
+    <ul>
+      <li>
+        <i class="material-icons">
+          view_list
+        </i>
+        Products
+      </li>
+      <li>
+        <i class="material-icons">
+          shopping_cart
+        </i>
+        Car
+      </li>
+    </ul>
+  </nav>
   <div>
     Bootcamp Ecommerce
   </div>

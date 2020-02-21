@@ -13,4 +13,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  openNav(header: HTMLElement, icon: HTMLElement) {
+    header.classList.toggle('nav-open');
+    icon.textContent = header.classList.contains('nav-open') ? 'close' : 'menu';
+  }
 }
