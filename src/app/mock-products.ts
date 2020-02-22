@@ -180,3 +180,5 @@ export const PRODUCTS: Product[] = [
     createdAt: '2019-12-31T23:00:00.000Z',
   },
 ];
+
+export const CAR_ITEMS: Product[] = [];

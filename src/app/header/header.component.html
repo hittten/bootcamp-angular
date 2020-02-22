@@ -4,24 +4,24 @@
   </i>
   <nav>
     <ul>
-      <li>
+      <li routerLink="/products" (click)="openNav(header, menuIcon)">
         <i class="material-icons">
           view_list
         </i>
         Products
       </li>
-      <li>
+      <li routerLink="/shopping-car" (click)="openNav(header, menuIcon)">
         <i class="material-icons">
           shopping_cart
         </i>
-        Car
+        Shopping Car
       </li>
     </ul>
   </nav>
   <div>
     Bootcamp Ecommerce
   </div>
-  <i class="material-icons">
+  <i routerLink="/shopping-car" class="material-icons">
     shopping_cart
   </i>
 </header>

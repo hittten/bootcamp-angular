@@ -7,6 +7,8 @@ import {HeaderComponent} from './header/header.component';
 import {ProductListComponent} from './product-list/product-list.component';
 import {TooltipDirective} from './tooltip.directive';
 import {EuroCurrencyPipe} from './euro-currency.pipe';
+import {ShoppingCarComponent} from './shopping-car/shopping-car.component';
+import {ProductsComponent} from './products/products.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import {EuroCurrencyPipe} from './euro-currency.pipe';
     HeaderComponent,
     ProductListComponent,
     TooltipDirective,
-    EuroCurrencyPipe
+    EuroCurrencyPipe,
+    ShoppingCarComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,

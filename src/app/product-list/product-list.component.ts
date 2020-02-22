@@ -1,5 +1,5 @@
-import {Component, OnInit} from '@angular/core';
-import {PRODUCTS} from '../mock-products';
+import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Product} from '../product';
 
 @Component({
   selector: 'app-product-list',
@@ -7,7 +7,9 @@ import {PRODUCTS} from '../mock-products';
   styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
-  products = PRODUCTS;
+  @Input() products: Product[];
+  @Input() buttonText: string;
+  @Output() buttonClick = new EventEmitter<Product>();
   gridView = false;
 
   constructor() {

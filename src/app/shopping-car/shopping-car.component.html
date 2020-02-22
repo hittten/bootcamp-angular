@@ -1,0 +1,8 @@
+<div class="wrapper">
+  <h1>Shopping Car</h1>
+  <app-product-list
+    [products]="carItems"
+    (buttonClick)="removeFromCar($event)"
+    buttonText="Remove from car">
+  </app-product-list>
+</div>
