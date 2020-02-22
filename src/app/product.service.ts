@@ -10,6 +10,16 @@ export class ProductService {
   constructor() {
   }
 
+  create(product: Product) {
+    product.id = (Math.floor(Math.random() * 500) + 1).toString();
+    product.createdAt = new Date().toISOString();
+    product.image = `https://picsum.photos/id/${product.id}/300/300`;
+
+    PRODUCTS.push(product);
+
+    return product;
+  }
+
   list(): Product[] {
     return PRODUCTS;
   }

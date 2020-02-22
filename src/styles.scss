@@ -26,3 +26,7 @@ i.material-icons {
   border-radius: 2px;
   color: white;
 }
+
+.button:disabled {
+  background-color: lightblue;
+}

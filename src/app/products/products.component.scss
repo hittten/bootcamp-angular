@@ -1,0 +1,18 @@
+i {
+  position: fixed;
+  border-radius: 50%;
+  bottom: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background: dodgerblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, .2), 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12);
+}
+
+i:active {
+  box-shadow: none;
+}
