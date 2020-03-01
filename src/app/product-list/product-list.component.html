@@ -6,17 +6,19 @@
     view_module
   </i>
 </div>
-<ul [class.grid]="gridView">
+<ul [class.grid]="gridView" *ngIf="products$ | async as products; else loading">
   <li *ngFor="let product of products">
     <h2>{{product.name | uppercase}}</h2>
     <img src="{{product.image}}" alt="{{product.name}}">
     <p>
       ({{product.createdAt | date:'dd/MM/yy'}}) -
-      {{product.description.length > 150 ? (product.description | slice:0:150) + '...' : product.description}}
+      {{product.description.length > 150 ? (product.description | slice:0: 150) + '...' : product.description}}
     </p>
     <div class="price">{{product.price | euroCurrency}}</div>
     <div>
-      <button class="button" (click)="buttonClick.emit(product)">{{buttonText}}</button>
+      <button class="button" #buttonElement
+              (click)="buttonClick.emit({product: product, element: buttonElement})">{{buttonText}}</button>
     </div>
   </li>
 </ul>
+<ng-template #loading><img class="loading" src="assets/spinner.svg" alt="loading"></ng-template>

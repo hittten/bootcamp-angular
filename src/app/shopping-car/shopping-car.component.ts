@@ -1,14 +1,16 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProductService} from '../product.service';
 import {Product} from '../product';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-shopping-car',
   templateUrl: './shopping-car.component.html',
   styleUrls: ['./shopping-car.component.scss']
 })
-export class ShoppingCarComponent implements OnInit {
-  carItems = this.productService.listCarItems();
+export class ShoppingCarComponent implements OnInit, OnDestroy {
+  private subscriptions: Subscription[] = [];
+  carItems$ = this.productService.listCarItems();
 
   constructor(private productService: ProductService) {
   }
@@ -16,7 +18,19 @@ export class ShoppingCarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  removeFromCar(product: Product) {
-    this.productService.removeFromShoppingCar(product);
+  removeFromCar(event: { product: Product, element: HTMLButtonElement }) {
+    event.element.disabled = true;
+    const subscription = this.productService.removeFromShoppingCar(event.product)
+      .subscribe(() => {
+        event.element.disabled = false;
+        this.carItems$ = this.productService.listCarItems();
+        console.log('product removed from shopping car', event.product);
+      });
+
+    this.subscriptions.push(subscription);
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 }
