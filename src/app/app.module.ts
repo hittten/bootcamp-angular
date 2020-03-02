@@ -11,6 +11,7 @@ import {EuroCurrencyPipe} from './euro-currency.pipe';
 import {ShoppingCarComponent} from './shopping-car/shopping-car.component';
 import {ProductsComponent} from './products/products.component';
 import {ProductAddComponent} from './product-add/product-add.component';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import {ProductAddComponent} from './product-add/product-add.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

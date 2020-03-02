@@ -1,44 +1,39 @@
 import {Injectable} from '@angular/core';
-import {PRODUCTS, CAR_ITEMS} from './mock-products';
 import {Product} from './product';
 import {Observable, of} from 'rxjs';
-import {delay} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../environments/environment';
+
+const apiUrl = {
+  products: environment.apiUrl + '/products/' + environment.user + '/',
+  shoppingCar: environment.apiUrl + '/shoppingCar/' + environment.user + '/',
+};
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   create(product: Product): Observable<Product> {
-    product.id = (Math.floor(Math.random() * 500) + 1).toString();
-    product.createdAt = new Date().toISOString();
-    product.image = `https://picsum.photos/id/${product.id}/300/300`;
-
-    PRODUCTS.push(product);
-
-    return of(product).pipe(delay(500));
+    return this.http.post<Product>(apiUrl.products, product);
   }
 
   list(): Observable<Product[]> {
-    return of(PRODUCTS).pipe(delay(500));
+    return this.http.get<Product[]>(apiUrl.products);
   }
 
   addToShoppingCar(product: Product): Observable<string> {
-    CAR_ITEMS.push(product);
-    return of('OK').pipe(delay(500));
+    return this.http.put(apiUrl.shoppingCar + product.id, null, {responseType: 'text'});
   }
 
   listCarItems(): Observable<Product[]> {
-    return of([...CAR_ITEMS]).pipe(delay(500));
+    return this.http.get<Product[]>(apiUrl.shoppingCar);
   }
 
   removeFromShoppingCar(product: Product): Observable<string> {
-    const id = CAR_ITEMS.findIndex(value => value.id === product.id);
-    CAR_ITEMS.splice(id, 1);
-
-    return of('OK').pipe(delay(500));
+    return this.http.delete(apiUrl.shoppingCar + product.id, {responseType: 'text'});
   }
 }
