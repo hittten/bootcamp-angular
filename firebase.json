@@ -18,6 +18,14 @@
     ],
     "rewrites": [
       {
+        "source": "/api/products/**",
+        "function": "products"
+      },
+      {
+        "source": "/api/shoppingCar/**",
+        "function": "shoppingCar"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }

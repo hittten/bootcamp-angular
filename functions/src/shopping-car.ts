@@ -10,6 +10,11 @@ const shoppingCar = express();
 
 shoppingCar.use(cors({origin: true}));
 
+shoppingCar.use(function (request: functions.Request, response: functions.Response, next: Function) {
+  request.url = request.url.replace(/^\/api\/shoppingCar/i, '');
+  next();
+});
+
 shoppingCar.get('/:user/', async (request: functions.Request, response: functions.Response) => {
   const collection = 'shopping-car-' + request.params.user;
   const shoppingCarList: Product[] = [];
