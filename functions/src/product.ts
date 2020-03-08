@@ -41,13 +41,13 @@ const products = express();
 
 products.use(cors({origin: true}));
 
-products.use(function (request: functions.Request, response: functions.Response, next: Function) {
+products.use(function(request: functions.Request, response: functions.Response, next: Function) {
   request.url = request.url.replace(/^\/api\/products/i, '');
   next();
 });
 
 products.post('/:user/', async (request: functions.Request, response: functions.Response) => {
-  const collection = 'products-' + request.params.user;
+  const user = request.params.user;
   const body = request.body as ProductIncomingData;
 
   if (!body.name || !body.price || !body.description) {
@@ -65,16 +65,16 @@ products.post('/:user/', async (request: functions.Request, response: functions.
     updatedAt: admin.firestore.FieldValue.serverTimestamp(),
   };
 
-  await db.collection(collection).doc(product.id).set(product);
+  await db.doc(`/users/${user}/products/${product.id}`).set(product);
 
   return response.json(product);
 });
 
 products.get('/:user/', async (request: functions.Request, response: functions.Response) => {
-  const collection = 'products-' + request.params.user;
+  const user = request.params.user;
   const productsList: Product[] = [];
 
-  const productsSnapshot = await db.collection(collection).get();
+  const productsSnapshot = await db.collection(`/users/${user}/products`).get();
 
   productsSnapshot.forEach(doc => {
     const product = serializeProduct(doc.data() as ProductData);
@@ -86,10 +86,10 @@ products.get('/:user/', async (request: functions.Request, response: functions.R
 });
 
 products.get('/:user/:id', async (request: functions.Request, response: functions.Response) => {
-  const collection = 'products-' + request.params.user;
+  const user = request.params.user;
   const productId = request.params.id;
 
-  const productsSnapshot = await db.collection(collection).doc(productId).get();
+  const productsSnapshot = await db.doc(`/users/${user}/products/${productId}`).get();
 
   if (!productsSnapshot.exists) {
     console.error('product id', productId, 'not exist');
@@ -100,11 +100,11 @@ products.get('/:user/:id', async (request: functions.Request, response: function
 });
 
 products.put('/:user/:id', async (request: functions.Request, response: functions.Response) => {
-  const collection = 'products-' + request.params.user;
+  const user = request.params.user;
   const body = request.body as ProductIncomingData;
   const productId = request.params.id;
 
-  const productReference = db.collection(collection).doc(productId);
+  const productReference = db.doc(`/users/${user}/products/${productId}`);
   const updatedProduct = {} as any;
 
   for (const [key, value] of Object.entries(body)) {
@@ -127,10 +127,10 @@ products.put('/:user/:id', async (request: functions.Request, response: function
 });
 
 products.delete('/:user/:id', async (request: functions.Request, response: functions.Response) => {
-  const collection = 'products-' + request.params.user;
+  const user = request.params.user;
   const productId = request.params.id;
 
-  const productReference = db.collection(collection).doc(productId);
+  const productReference = db.doc(`/users/${user}/products/${productId}`);
   const productSnapshot = await productReference.get();
 
   if (!productSnapshot.exists) {

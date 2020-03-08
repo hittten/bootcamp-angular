@@ -10,16 +10,16 @@ const shoppingCar = express();
 
 shoppingCar.use(cors({origin: true}));
 
-shoppingCar.use(function (request: functions.Request, response: functions.Response, next: Function) {
+shoppingCar.use(function(request: functions.Request, response: functions.Response, next: Function) {
   request.url = request.url.replace(/^\/api\/shoppingCar/i, '');
   next();
 });
 
 shoppingCar.get('/:user/', async (request: functions.Request, response: functions.Response) => {
-  const collection = 'shopping-car-' + request.params.user;
+  const user = request.params.user;
   const shoppingCarList: Product[] = [];
 
-  const productsSnapshot = await db.collection(collection).get();
+  const productsSnapshot = await db.collection(`/users/${user}/shopping-car`).get();
 
   productsSnapshot.forEach(doc => {
     const product = serializeProduct(doc.data() as ProductData);
@@ -31,11 +31,10 @@ shoppingCar.get('/:user/', async (request: functions.Request, response: function
 });
 
 shoppingCar.put('/:user/:productId/', async (request: functions.Request, response: functions.Response) => {
-  const productCollection = 'products-' + request.params.user;
-  const shoppingCarCollection = 'shopping-car-' + request.params.user;
+  const user = request.params.user;
   const productId = request.params.productId;
 
-  const productReference = db.collection(productCollection).doc(productId);
+  const productReference = db.doc(`/users/${user}/products/${productId}`);
   const productsSnapshot = await productReference.get();
   const product = productsSnapshot.data();
 
@@ -44,21 +43,21 @@ shoppingCar.put('/:user/:productId/', async (request: functions.Request, respons
     return response.sendStatus(404);
   }
 
-  await db.collection(shoppingCarCollection).add(product);
+  await db.collection(`/users/${user}/shopping-car`).add(product);
   return response.sendStatus(200);
 });
 
 shoppingCar.delete('/:user/:productId/', async (request: functions.Request, response: functions.Response) => {
-  const collection = 'shopping-car-' + request.params.user;
+  const user = request.params.user;
   const productId = request.params.productId;
-  const productReference = await db.collection(collection).where('id', '==', productId).limit(1).get();
+  const productReference = await db.collection(`/users/${user}/shopping-car`).where('id', '==', productId).limit(1).get();
 
   if (productReference.empty) {
     console.error('product id', productId, 'not exist');
     return response.sendStatus(404);
   }
   productReference.forEach(item => {
-    item.ref.delete().then(() => response.sendStatus(200));
+    item.ref.delete().then(() => response.sendStatus(200)).catch(e => console.error(e));
   });
 
   return;
