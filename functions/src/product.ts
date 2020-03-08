@@ -41,6 +41,11 @@ const products = express();
 
 products.use(cors({origin: true}));
 
+products.use(function (request: functions.Request, response: functions.Response, next: Function) {
+  request.url = request.url.replace(/^\/api\/products/i, '');
+  next();
+});
+
 products.post('/:user/', async (request: functions.Request, response: functions.Response) => {
   const collection = 'products-' + request.params.user;
   const body = request.body as ProductIncomingData;
