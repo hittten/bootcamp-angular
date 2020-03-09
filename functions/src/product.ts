@@ -9,6 +9,7 @@ interface ProductIncomingData {
   name: string;
   price: number;
   description: string;
+  image?: string;
 }
 
 export interface ProductData extends ProductIncomingData {
@@ -66,6 +67,23 @@ products.post('/:user/', async (request: functions.Request, response: functions.
   };
 
   await db.doc(`/users/${user}/products/${product.id}`).set(product);
+
+  if (!body.image) {
+    return response.json(product);
+  }
+
+  const base64Image = request.body.image.replace(/^data:image\/\w+;base64,/, '');
+  const bufferImage = Buffer.from(base64Image, 'base64');
+  const bucket = admin.storage().bucket();
+  const file = bucket.file(`/users/${user}/products/${product.id}.jpg`);
+
+  await file.save(bufferImage, {
+    contentType: 'image/jpeg',
+    public: true,
+  });
+
+  const host = request.get('x-forwarded-host') ? request.get('x-forwarded-host') : request.headers.host;
+  product.image = `${request.protocol}://${host}/api/data/${user}/${product.id}.jpg`;
 
   return response.json(product);
 });

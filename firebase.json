@@ -7,7 +7,8 @@
     "predeploy": [
       "npm --prefix \"$RESOURCE_DIR\" run lint",
       "npm --prefix \"$RESOURCE_DIR\" run build"
-    ]
+    ],
+    "source": "functions"
   },
   "hosting": {
     "public": "dist/bootcamp-angular",
@@ -26,6 +27,10 @@
         "function": "shoppingCar"
       },
       {
+        "source": "/api/data/**",
+        "function": "data"
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
@@ -33,5 +38,9 @@
     "predeploy": [
       "npm run build"
     ]
-  }
+  },
+  "storage": {
+    "rules": "storage.rules"
+  },
+  "emulators": {}
 }
