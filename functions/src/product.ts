@@ -66,9 +66,8 @@ products.post('/:user/', async (request: functions.Request, response: functions.
     updatedAt: admin.firestore.FieldValue.serverTimestamp(),
   };
 
-  await db.doc(`/users/${user}/products/${product.id}`).set(product);
-
   if (!body.image) {
+    await db.doc(`/users/${user}/products/${product.id}`).set(product);
     return response.json(product);
   }
 
@@ -84,6 +83,8 @@ products.post('/:user/', async (request: functions.Request, response: functions.
 
   const host = request.get('x-forwarded-host') ? request.get('x-forwarded-host') : request.headers.host;
   product.image = `${request.protocol}://${host}/api/data/${user}/${product.id}.jpg`;
+
+  await db.doc(`/users/${user}/products/${product.id}`).set(product);
 
   return response.json(product);
 });
